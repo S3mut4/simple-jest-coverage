@@ -31,6 +31,5 @@ describe('Bank', () => {
       bank.deposit(24)
       expect(bank.hasEnoughBalance()).toBeFalsy()
     })
-    // TODO: withdraw tests to increase coverage according to the threshold
   })
 })
