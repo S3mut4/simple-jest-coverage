@@ -1,16 +1,20 @@
 export class PaymentService {
   private amount: number
+
   private isPaid: boolean = false
 
   constructor(initialAmount: number) {
-    if (initialAmount <= 0) {
+    if (!Number.isFinite(initialAmount) || initialAmount <= 0) {
       throw new Error('Initial amount must be greater than 0')
     }
     this.amount = initialAmount
   }
 
   applyDiscount(percent: number): void {
-    if (percent < 0 || percent > 100 || this.isPaid) {
+    const isValidPercent =
+      Number.isFinite(percent) && percent >= 0 && percent <= 100
+
+    if (!isValidPercent || this.isPaid) {
       return
     }
 
