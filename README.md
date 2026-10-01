@@ -8,6 +8,8 @@ A TypeScript project with Jest for testing and code coverage. Contains two examp
 src/
 ├── bank/
 │   └── bank.ts
+├── payment/
+│   └── payment.ts
 └── subscription/
     ├── subscription.ts
     ├── basic-plan.ts
@@ -16,6 +18,8 @@ src/
 test/
 ├── bank/
 │   └── bank.test.ts
+├── payment/
+│   └── payment.test.ts
 └── subscription/
     └── subscription.test.ts
 ```
@@ -35,8 +39,8 @@ npm install
 ## Student Tasks
 
 1. **Bank**: Add withdraw tests to increase coverage (see TODO in `test/bank/bank.test.ts`)
-2. **Subscription**: Add `getPrice` tests for BasicPlan and PremiumPlan (including discount for 12+ months) to increase coverage (see TODOs in `test/subscription/subscription.test.ts`)
-
+2. **Subscription**: Added `getPrice` tests for BasicPlan and PremiumPlan (including discount for 12+ months) to increase coverage (see TODOs in `test/subscription/subscription.test.ts`)
+3. **PaymentService**: Implemented PaymentService with strict type validation and 100% test coverage (TC-001 through TC-025).
 ## Coverage
 
 Run `npm run test:coverage` to see the coverage report. 
