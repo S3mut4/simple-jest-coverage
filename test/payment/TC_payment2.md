@@ -109,26 +109,48 @@ All files     |  96.59 |   96.59 |       85 |         0 |          3 |        0 
 
 # Stryker (after reduction)
 
-Run on the **reduced suite** (11 test cases). Same score for `payment2.ts` (97.37%) with fewer tests per mutant (9.23 vs 12.89).
+Run on the suite (25 test cases). Same score for `payment2.ts` (97.37%)
 
+
+node find-redundant-tests.mjs reports/mutation/mutation.json payment.ts
+
+6 tests imprescindibles (TC-002, 010, 014, 015, 024 y 025)
+(añadidos TC-003, 005, 017, 018, 019 y 021)
 ```
-s3mut4@MacBookPro simple-jest-coverage % node find-redundant-tests.mjs reports/mutation/mutation.json payment2
-
-Mutants: 37 killed, 1 survived
+Mutants: 39 killed, 1 survived
 
 Test                                                                   Kills  Unique  Decision
-TC-002: Throw error when amount is 0                                       8       2  KEEP (unique kill)
-TC-003: Create instance with minimum valid positive amount                 5       0  redundant
+TC-001: Throw error when amount is just below 0                            7       0  redundant
+TC-002: Throw error when amount is 0                                       8       1  KEEP (unique kill)
+TC-003: Create instance with minimum valid positive amount                 7       0  redundant
+TC-004: Create instance with nominal amount                                7       0  redundant
 TC-005: Throw error when amount is NaN                                     6       0  redundant
-TC-010: Ignore discount when percentage is just below 0%                  14       1  KEEP (unique kill)
-TC-014: Apply 100% discount boundary                                      15       1  KEEP (unique kill)
-TC-015: Ignore discount when percentage exceeds 100%                      12       1  KEEP (unique kill)
-TC-017: Apply consecutive discounts on updated amount                     14       0  redundant
-TC-018: Ignore discount if payment is already completed                   11       0  redundant
-TC-019: Ignore discount when percentage is NaN                            13       0  redundant
-TC-024: Return true on first payment                                       7       1  KEEP (unique kill)
-TC-025: Return false on duplicate payment attempt                          8       3  KEEP (unique kill)
+TC-006: Throw error when amount is Infinity                                6       0  redundant
+TC-007: Throw error when amount is a string                                6       0  redundant
+TC-008: Throw error when amount is undefined                               6       0  redundant
+TC-009: Throw error when amount is a non-number type (array)               6       0  redundant
+TC-009: Throw error when amount is a non-number type (boolean)             6       0  redundant
+TC-009: Throw error when amount is a non-number type (function)            6       0  redundant
+TC-009: Throw error when amount is a non-number type (object)              6       0  redundant
+TC-010: Ignore discount when percentage is just below 0%                  17       1  KEEP (unique kill)
+TC-011: Apply 0% discount boundary                                         5       0  redundant
+TC-012: Apply discount just above 0%                                      15       0  redundant
+TC-013: Apply discount just below 100%                                    15       0  redundant
+TC-014: Apply 100% discount boundary                                      16       1  KEEP (unique kill)
+TC-015: Ignore discount when percentage exceeds 100%                      15       1  KEEP (unique kill)
+TC-016: Apply nominal discount                                            15       0  redundant
+TC-017: Apply consecutive discounts on updated amount                     15       0  redundant
+TC-018: Ignore discount if payment is already completed                   12       0  redundant
+TC-019: Ignore discount when percentage is NaN                            12       0  redundant
+TC-020: Ignore discount when percentage is Infinity                       12       0  redundant
+TC-021: Ignore discount when percentage is a string                       15       0  redundant
+TC-022: Ignore discount when percentage is undefined                      12       0  redundant
+TC-023: Ignore discount when percentage is a non-number type (array)      15       0  redundant
+TC-023: Ignore discount when percentage is a non-number type (boolean     15       0  redundant
+TC-023: Ignore discount when percentage is a non-number type (functio     12       0  redundant
+TC-023: Ignore discount when percentage is a non-number type (object)     12       0  redundant
+TC-024: Return true and set isPaid to true on first call                   9       1  KEEP (unique kill)
+TC-025: Return false on duplicate payment attempt                         12       3  KEEP (unique kill)
 
-Minimal set: 6 of 11 tests kill all 37 mutants.
+Minimal set: 6 of 31 tests kill all 39 mutants.
 Tests that kill nothing do not appear in the list: they are redundant too.
-```
