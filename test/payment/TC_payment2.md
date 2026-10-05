@@ -112,16 +112,23 @@ All files     |  96.59 |   96.59 |       85 |         0 |          3 |        0 
 Run on the **reduced suite** (11 test cases). Same score for `payment2.ts` (97.37%) with fewer tests per mutant (9.23 vs 12.89).
 
 ```
-Ran 9.23 tests per mutant on average.
---------------|------------------|----------|-----------|------------|----------|----------|
-              | % Mutation score |          |           |            |          |          |
-File          |  total | covered | # killed | # timeout | # survived | # no cov | # errors |
---------------|--------|---------|----------|-----------|------------|----------|----------|
-All files     |  96.59 |   96.59 |       85 |         0 |          3 |        0 |        0 |
- bank         |  90.00 |   90.00 |        9 |         0 |          1 |        0 |        0 |
-  bank.ts     |  90.00 |   90.00 |        9 |         0 |          1 |        0 |        0 |
- payment      |  97.44 |   97.44 |       76 |         0 |          2 |        0 |        0 |
-  payment.ts  |  97.50 |   97.50 |       39 |         0 |          1 |        0 |        0 |
-  payment2.ts |  97.37 |   97.37 |       37 |         0 |          1 |        0 |        0 |
---------------|--------|---------|----------|-----------|------------|----------|----------|
+s3mut4@MacBookPro simple-jest-coverage % node find-redundant-tests.mjs reports/mutation/mutation.json payment2
+
+Mutants: 37 killed, 1 survived
+
+Test                                                                   Kills  Unique  Decision
+TC-002: Throw error when amount is 0                                       8       2  KEEP (unique kill)
+TC-003: Create instance with minimum valid positive amount                 5       0  redundant
+TC-005: Throw error when amount is NaN                                     6       0  redundant
+TC-010: Ignore discount when percentage is just below 0%                  14       1  KEEP (unique kill)
+TC-014: Apply 100% discount boundary                                      15       1  KEEP (unique kill)
+TC-015: Ignore discount when percentage exceeds 100%                      12       1  KEEP (unique kill)
+TC-017: Apply consecutive discounts on updated amount                     14       0  redundant
+TC-018: Ignore discount if payment is already completed                   11       0  redundant
+TC-019: Ignore discount when percentage is NaN                            13       0  redundant
+TC-024: Return true on first payment                                       7       1  KEEP (unique kill)
+TC-025: Return false on duplicate payment attempt                          8       3  KEEP (unique kill)
+
+Minimal set: 6 of 11 tests kill all 37 mutants.
+Tests that kill nothing do not appear in the list: they are redundant too.
 ```
