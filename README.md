@@ -21,7 +21,7 @@ test/
 ├── payment/
 │   ├── payment.test.ts            # Full suite: TC-001 to TC-025 (31 executions)
 │   ├── TC_payment.md              # Test case tables for the full suite
-│   ├── minimalpayment.test.ts     # Minimal suite: 9 test cases
+│   ├── minimalpayment.test.ts     # Minimal suite: 11 test cases
 │   └── minimalpayment.md          # Test case tables for the minimal suite
 └── subscription/
     └── subscription.test.ts
@@ -50,9 +50,11 @@ npm install
 There are two suites on purpose:
 
 - **Full suite** (`payment.test.ts`): the original design from boundary value analysis and equivalence partitioning, including runtime type checks (strings, `undefined`, objects, arrays, booleans, functions).
-- **Minimal suite** (`minimalpayment.test.ts`): the 9 test cases that remain after mutation testing with Stryker. Each one kills at least one mutant no other test kills, and together they reach the same mutation score as the full suite (38/39; the survivor is an equivalent mutant).
+- **Minimal suite** (`minimalpayment.test.ts`): 11 test cases. 9 were selected with Stryker mutation testing: each one kills at least one mutant no other test kills, and together they reach the same mutation score as the full suite (38/39; the survivor is an equivalent mutant). The other 2 (TC-012, TC-017) cover spec requirements Stryker does not generate mutants for: the lower bound of the discount range and discounts applied to the current amount.
 
-The comparison shows that most of the full suite is redundant from a fault-detection point of view. See `minimalpayment.md` for the reasoning behind each test.
+The comparison shows that most of the full suite is redundant against Stryker's mutants. Stryker only applies syntactic mutations, though, so the full suite still catches realistic bugs the minimal suite misses (e.g. using global `isFinite` instead of `Number.isFinite`). A high mutation score does not mean every requirement is tested. See `minimalpayment.md` for the reasoning behind each test.
+
+Stryker configuration and reports live in the `payment2-mutation` branch.
 
 ## Coverage
 
