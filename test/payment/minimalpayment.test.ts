@@ -23,6 +23,12 @@ describe('PaymentService - Minimal suite', () => {
       expect(service.getIsPaid()).toBe(false)
     })
 
+    test('TC-012: Apply discount just above 0%', () => {
+      const service = new PaymentService(100)
+      service.applyDiscount(0.01)
+      expect(service.getAmount()).toBeCloseTo(99.99)
+    })
+
     test('TC-014: Apply 100% discount boundary', () => {
       const service = new PaymentService(100)
       service.applyDiscount(100)
@@ -33,6 +39,14 @@ describe('PaymentService - Minimal suite', () => {
       const service = new PaymentService(100)
       service.applyDiscount(100.01)
       expect(service.getAmount()).toBe(100)
+    })
+
+    test('TC-017: Apply consecutive discounts on updated amount', () => {
+      const service = new PaymentService(100)
+      service.applyDiscount(20)
+      expect(service.getAmount()).toBe(80)
+      service.applyDiscount(50)
+      expect(service.getAmount()).toBe(40)
     })
 
     test('TC-018: Ignore discount if payment is already completed', () => {
