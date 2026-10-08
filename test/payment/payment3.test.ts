@@ -1,6 +1,8 @@
 import { PaymentService } from '../../src/payment/payment3'
 
-describe('Constructor', () => {
+// The spec only requires "throw an error": the message is not checked
+describe('PaymentService - Minimal suite', () => {
+  describe('Constructor', () => {
     test('TC-002: Throw error when amount is 0', () => {
       expect(() => new PaymentService(0)).toThrow()
     })
@@ -86,4 +88,5 @@ describe('Constructor', () => {
       expect(service.pay()).toBe(false)
       expect(service.getIsPaid()).toBe(true)
     })
+  })
 })
