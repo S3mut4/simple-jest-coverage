@@ -8,6 +8,7 @@ describe('PaymentService - Minimal suite', () => {
       )
     })
 
+
     test('TC-005: Throw error when amount is NaN', () => {
       expect(() => new PaymentService(NaN)).toThrow(
         'Initial amount must be greater than 0',
