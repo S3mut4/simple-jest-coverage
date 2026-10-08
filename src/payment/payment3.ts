@@ -7,7 +7,7 @@ export class PaymentService {
       throw new Error('Amount must be greater than 0')
     }
 
-    if (!Number.isInteger(amount)) {
+    if (!Number.isFinite(amount)) {
       throw new Error('Amount must be a finite number')
     }
 
