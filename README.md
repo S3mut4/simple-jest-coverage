@@ -54,7 +54,13 @@ There are two suites on purpose:
 
 The comparison shows that most of the full suite is redundant against Stryker's mutants. Stryker only applies syntactic mutations, though, so the full suite still catches realistic bugs the minimal suite misses (e.g. using global `isFinite` instead of `Number.isFinite`). A high mutation score does not mean every requirement is tested. See `minimalpayment.md` for the reasoning behind each test.
 
-Stryker configuration and reports live in the `payment2-mutation` branch.
+Stryker configuration and reports
+
+`npm run mutation`
+# Full suite
+`node find-redundant-tests.mjs reports/mutation/mutation.json payment.ts payment.test.ts`
+# Minimal suite
+`node find-redundant-tests.mjs reports/mutation/mutation.json payment.ts minimalpayment.test.ts`
 
 ## Coverage
 
