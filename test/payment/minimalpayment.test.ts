@@ -1,17 +1,20 @@
 import { PaymentService } from '../../src/payment/payment'
 
+// The spec only requires "throw an error": the message is not checked
 describe('PaymentService - Minimal suite', () => {
   describe('Constructor', () => {
     test('TC-002: Throw error when amount is 0', () => {
-      expect(() => new PaymentService(0)).toThrow(
-        'Initial amount must be greater than 0',
-      )
+      expect(() => new PaymentService(0)).toThrow()
+    })
+
+    test('TC-003: Create instance with a decimal amount', () => {
+      const service = new PaymentService(0.01)
+      expect(service.getAmount()).toBe(0.01)
+      expect(service.getIsPaid()).toBe(false)
     })
 
     test('TC-005: Throw error when amount is NaN', () => {
-      expect(() => new PaymentService(NaN)).toThrow(
-        'Initial amount must be greater than 0',
-      )
+      expect(() => new PaymentService(NaN)).toThrow()
     })
   })
 
@@ -55,6 +58,12 @@ describe('PaymentService - Minimal suite', () => {
       service.applyDiscount(20)
       expect(service.getAmount()).toBe(100)
       expect(service.getIsPaid()).toBe(true)
+    })
+
+    test('TC-019: Ignore discount when percentage is NaN', () => {
+      const service = new PaymentService(100)
+      service.applyDiscount(NaN)
+      expect(service.getAmount()).toBe(100)
     })
 
     test('TC-021: Ignore discount when percentage is a string', () => {
